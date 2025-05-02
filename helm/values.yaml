@@ -1,0 +1,5 @@
+name: fixin8r
+namespace: fixin8r
+
+helm-charts:
+  namespace: fixin8r

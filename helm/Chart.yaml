@@ -1,0 +1,10 @@
+apiVersion: v2
+name: fixin8r
+description: A helm chart to deploy fixin8r into Kubernetes
+type: application
+version: 1.0.0
+appVersion: 1.0.0
+dependencies:
+  - name: helm-charts
+    version: 1.15.0
+    repository: oci://ghcr.io/tjtharrison
