@@ -2,6 +2,7 @@
 
 Global resources and things for fixin8r services
 
+
 # Overview
 
 ```mermaid
@@ -10,7 +11,8 @@ graph TD
     Gatekeeper -->|Writes to| KafkaTopic["Kafka Topic: alerts-raw"]
     KafkaTopic -->|Read by| Router["fixin8r-router"]
     Router -->|Queries| Consul
-    Router -->|Conditionally Writes to| AlertsTopic["Kafka Topic: alerts"]
-    AlertsTopic -->|Read by| Remediationator["fixin8r-ticketer"]
-    AlertsTopic -->|Read by| Ticketer["fixin8r-remediationator"]
+    Router -->|Writes to| AlertsTopic["Kafka Topic: alerts"]
+    Router -->|Writes to| RemediatesTopic["Kafka Topic: remediates"]
+    AlertsTopic -->|Read by| Ticketer["fixin8r-ticketer"]
+    RemediatesTopic -->|Read by| Remediationator["fixin8r-remediationator"]
 ```
