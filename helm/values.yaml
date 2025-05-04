@@ -3,3 +3,51 @@ namespace: fixin8r
 
 helm-charts:
   namespace: fixin8r
+  deployments:
+    - name: redis
+      image: redis:7.0.12
+      replicas: 1
+      ports:
+        - containerPort: 6379
+          protocol: TCP
+          name: redis
+      liveness:
+        enable: "False"
+      readiness:
+        enable: "False"
+      resources:
+        requests:
+          cpu: 50m
+          memory: 100M
+        limits:
+          cpu: 150m
+          memory: 200M
+      volume_mounts:
+        - name: redis-storage-nfs
+          mountPath: /data
+      volumes:
+        - name: redis-storage-nfs
+          claimName: redis-storage-nfs
+      envSecrets: []
+      securityContext:
+        capabilities:
+          add: []
+      command: []
+      env: []
+      args: []
+      configMounts: []
+      secretMounts: []
+      envSecrets: []
+  services:
+    - name: redis
+      type: ClusterIP
+      ports:
+        - port: 6379
+          protocol: TCP
+          name: redis
+      selector:
+        app: redis
+      annotations: []
+  nfs:
+    - name: redis-storage-nfs
+      storage: 100Mi
