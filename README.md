@@ -7,7 +7,7 @@ Global resources and things for fixin8r services
 
 ```mermaid
 graph TD
-    Alertmanager -->|Sends alerts| Gatekeeper
+    Alertmanager -->|Sends alerts| Gatekeeper["fixin8r-gatekeeper"]
     Gatekeeper -->|Writes to| KafkaTopic["Kafka Topic: alerts-raw"]
     KafkaTopic -->|Read by| Router["fixin8r-router"]
     Router -->|Queries| Consul
