@@ -38,6 +38,40 @@ helm-charts:
       configMounts: []
       secretMounts: []
       envSecrets: []
+    - name: redis-test
+      image: redis:7.0.12
+      replicas: 1
+      ports:
+        - containerPort: 6379
+          protocol: TCP
+          name: redis-test
+      liveness:
+        enable: "False"
+      readiness:
+        enable: "False"
+      resources:
+        requests:
+          cpu: 50m
+          memory: 100M
+        limits:
+          cpu: 150m
+          memory: 200M
+      volume_mounts:
+        - name: redis-test-storage-nfs
+          mountPath: /data
+      volumes:
+        - name: redis-test-storage-nfs
+          claimName: redis-test-storage-nfs
+      envSecrets: []
+      securityContext:
+        capabilities:
+          add: []
+      command: []
+      env: []
+      args: []
+      configMounts: []
+      secretMounts: []
+      envSecrets: []
   services:
     - name: redis
       type: ClusterIP
@@ -48,6 +82,17 @@ helm-charts:
       selector:
         app: redis
       annotations: []
+    - name: redis-test
+      type: ClusterIP
+      ports:
+        - port: 6379
+          protocol: TCP
+          name: redis-test
+      selector:
+        app: redis-test
+      annotations: []
   nfs:
     - name: redis-storage-nfs
+      storage: 100Mi
+    - name: redis-test-storage-nfs
       storage: 100Mi
