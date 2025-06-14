@@ -5,7 +5,7 @@ helm-charts:
   namespace: fixin8r
   deployments:
     - name: redis
-      image: redis:7.0.12
+      image: redis:7.4.4
       replicas: 1
       ports:
         - containerPort: 6379
@@ -39,7 +39,7 @@ helm-charts:
       secretMounts: []
       envSecrets: []
     - name: redis-test
-      image: redis:7.0.12
+      image: redis:7.4.4
       replicas: 1
       ports:
         - containerPort: 6379
